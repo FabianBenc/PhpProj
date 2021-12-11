@@ -131,7 +131,7 @@ if(!empty($_POST["patientID"])){
                     
                     // Retrieve individual field value
                     $lastName = $row["lastName"];
-                    $firstName = $row["lastName"];
+                    $firstName = $row["firstName"];
                     $age = $row["age"];
                     $sex = $row["sex"];
                     $bloodType = $row["bloodType"];
