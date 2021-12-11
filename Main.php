@@ -63,8 +63,8 @@ nav .nav-bar .nav-bar_item a:hover:after {
 	  <li class="nav-bar_item"><a class="logo" href="about.php">about</a></li>
   </ul>
 	<ul class="nav-bar">
-		<li class="nav-bar_item"><a href="create.php">Add New Patient</a></li>
-		<li class="nav-bar_item"><a href="logout.php">logout</a></li>
+		<li class="nav-bar_item"><a href="create.php" style="color:#B5F44A"><i class="fas fa-user-plus" style="color:#B5F44A"></i> Add New Patient</a></li>
+		<li class="nav-bar_item"><a href="logout.php"><i class="fas fa-sign-out-alt"></i> Log out</a></li>
 	</ul>
 </nav>
 <?php
@@ -78,7 +78,8 @@ nav .nav-bar .nav-bar_item a:hover:after {
   {
     if(mysqli_num_rows($result) >= 0)
     {
-      echo "<div id='table'class='center mx-5'>";
+      echo "<br>";
+      echo "<div id='table'class='mx-auto' style='width: 1000px'>";
       echo '<table class = "table rounded-3 text-center table-responsive table-bordered table-hover" style="background-color: #f3faff;">';
         echo '<thead>';
             echo '<tr>';
@@ -89,8 +90,9 @@ nav .nav-bar .nav-bar_item a:hover:after {
             echo '<th>Sex</th>';
             echo '<th>Blood Type</th>';
             echo '<th>Registration Date</th>';
-            echo '<th>Doctor ID</th>';
-            echo '<th>Delete</th>';
+            //echo '<th>Doctor ID</th>';
+            //echo '<th>Delete</th>';
+            //echo '<th>Update</th>';
           echo '</tr>';
           echo '</thead>';
           echo '<tbody>';
@@ -105,8 +107,8 @@ nav .nav-bar .nav-bar_item a:hover:after {
                 echo '<td>' . $row['sex'] . '</td>';
                 echo '<td>' . $row['bloodType'] . '</td>';
                 echo '<td>' . $row['registrationDate'] . '</td>';
-                echo '<td>' . $row['id'] . '</td>';
-                echo '<td><a href="delete.php?patientID='. $row['patientID'].'">Delete</a></td>';
+                //echo '<td>' . $row['id'] . '</td>';
+                echo '<td><a href="delete.php?patientID='. $row['patientID'].'"><i class="fas fa-user-minus" style="color:red"></i></a> <a href="update.php?patientID='. $row['patientID'] .'"><i class="fas fa-user-edit" style="color:#FF9B54"></i></a></td>';
               echo '</tr>';
             }
           echo '</tbody>';
