@@ -1,18 +1,13 @@
 <?php
-// Include config file
 require_once "config.php";
  
-// Define variables and initialize with empty values
 session_start();
     $firstName = $lastName = $age = $sex = $bloodType = $registrationDate = "";
     $firstNameError = $lastNameError = $ageError = $sexError = $bloodTypeError = $regDateError = "";
  
-// Processing form data when form is submitted
 if(!empty($_POST["patientID"])){
-    // Get hidden input value
     $id = $_POST["patientID"];
     
-    // Validate name
     $inputName = trim($_POST["firstName"]);
         if(empty($inputName))
         {
@@ -83,18 +78,14 @@ if(!empty($_POST["patientID"])){
             $registrationDate = $inputregistrationDate;
         }
     
-    // Check input errors before inserting in database
     if(empty($firstNameError) && empty($lastNameError) && empty($ageError)  && empty($regDateError) && empty($sexError) && empty($bloodTypeError))
         {
             $sql = "UPDATE patients SET lastName=?, firstName=?, age=?, sex=?, bloodType=?, registrationDate=? WHERE patientID=?";
 
         if($stmt = mysqli_prepare($link, $sql)){
-            // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "ssssssi", $lastName, $firstName, $age, $sex, $bloodType, $registrationDate,$id);
             
-            // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
-                // Records updated successfully. Redirect to landing page
                 header("location: Main.php");
                 exit();
             } else{
@@ -102,34 +93,24 @@ if(!empty($_POST["patientID"])){
             }
         }
          
-        // Close statement
         mysqli_stmt_close($stmt);
     }
     
-    // Close connection
     mysqli_close($link);
 } else{
-    // Check existence of id parameter before processing further
     if(isset($_GET["patientID"]) && !empty(trim($_GET["patientID"]))){
-        // Get URL parameter
         $id =  trim($_GET["patientID"]);
         
-        // Prepare a select statement
         $sql = "SELECT * FROM patients WHERE patientID = ?";
         if($stmt = mysqli_prepare($link, $sql)){
-            // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "i", $id);
             
-            // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
                 $result = mysqli_stmt_get_result($stmt);
     
                 if(mysqli_num_rows($result) == 1){
-                    /* Fetch result row as an associative array. Since the result set
-                    contains only one row, we don't need to use while loop */
                     $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
                     
-                    // Retrieve individual field value
                     $lastName = $row["lastName"];
                     $firstName = $row["firstName"];
                     $age = $row["age"];
@@ -137,7 +118,6 @@ if(!empty($_POST["patientID"])){
                     $bloodType = $row["bloodType"];
                     $registrationDate = $row["registrationDate"];
                 } else{
-                    // URL doesn't contain valid id. Redirect to error page
                     header("location: error.php");
                     exit();
                 }
@@ -147,13 +127,10 @@ if(!empty($_POST["patientID"])){
             }
         }
         
-        // Close statement
         mysqli_stmt_close($stmt);
         
-        // Close connection
         mysqli_close($link);
     }  else{
-        // URL doesn't contain id parameter. Redirect to error page
         header("location: error.php");
         exit();
     }

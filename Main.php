@@ -79,7 +79,7 @@ nav .nav-bar .nav-bar_item a:hover:after {
     if(mysqli_num_rows($result) >= 0)
     {
       echo "<br>";
-      echo "<div id='table'class='mx-auto' style='width: 1000px'>";
+      echo "<div id='table'class='mx-auto' style='max-width: 85%'; 'overflow-y = auto'>";
       echo '<table class = "table rounded-3 text-center table-responsive table-bordered table-hover" style="background-color: #f3faff;">';
         echo '<thead>';
             echo '<tr>';
@@ -90,9 +90,7 @@ nav .nav-bar .nav-bar_item a:hover:after {
             echo '<th>Sex</th>';
             echo '<th>Blood Type</th>';
             echo '<th>Registration Date</th>';
-            //echo '<th>Doctor ID</th>';
-            //echo '<th>Delete</th>';
-            //echo '<th>Update</th>';
+            echo '<th>Options</th>';
           echo '</tr>';
           echo '</thead>';
           echo '<tbody>';
@@ -108,7 +106,7 @@ nav .nav-bar .nav-bar_item a:hover:after {
                 echo '<td>' . $row['bloodType'] . '</td>';
                 echo '<td>' . $row['registrationDate'] . '</td>';
                 //echo '<td>' . $row['id'] . '</td>';
-                echo '<td><a href="delete.php?patientID='. $row['patientID'].'"><i class="fas fa-user-minus" style="color:red"></i></a> <a href="update.php?patientID='. $row['patientID'] .'"><i class="fas fa-user-edit" style="color:#FF9B54"></i></a></td>';
+                echo '<td><a href="delete.php?patientID='. $row['patientID'].'"><i class="fas fa-user-minus" title="Delete patient record" style="color:red"></i></a> <a href="update.php?patientID='. $row['patientID'] .'"><i class="fas fa-user-edit" title=" Update patient record"style="color:#FF9B54"></i></a> <a href="read.php?patientID='. $row['patientID'] .'"><i class=" fas fa-solid fa-book-medical" title="Read patient record"></i></a></td>';
               echo '</tr>';
             }
           echo '</tbody>';
