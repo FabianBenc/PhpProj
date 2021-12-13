@@ -8,6 +8,7 @@ $firstNameError = $lastNameError = $ageError = $sexError = $bloodTypeError = $re
 
 if($_SERVER["REQUEST_METHOD"] == "POST")
 {
+    $image = file_get_contents($_FILES['image']['tmp_name']);
     $inputName = trim($_POST["firstName"]);
     if(empty($inputName))
     {
@@ -79,14 +80,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         $registrationDate = $inputregistrationDate;
     }
 
+    /*if(isset($_POST["image"]) && !empty($_FILES["file"]["name"]))
+    {
+
+    }*/
+    
+
     if(empty($firstNameError) && empty($lastNameError) && empty($ageError)  && empty($regDateError) && empty($sexError) && empty($bloodTypeError))
     {
-        $sql = "INSERT INTO patients (lastName, firstName, age, sex, bloodType, registrationDate, id) VALUES (?, ?, ?, ?, ?, ?, {$_SESSION['id']}) ";
+        $sql = "INSERT INTO patients (lastName, firstName, age, sex, bloodType, registrationDate, image, id) VALUES (?, ?, ?, ?, ?, ?, ?,  {$_SESSION['id']}) ";
 
         if($stmt = mysqli_prepare($link, $sql))
         {
             //bind variables to the perapred statement as parameters
-            mysqli_stmt_bind_param($stmt, "ssssss", $lastName, $firstName, $age, $sex, $bloodType, $registrationDate);
+            mysqli_stmt_bind_param($stmt, "sssssss", $lastName, $firstName, $age, $sex, $bloodType, $registrationDate, $image);
 
             if(mysqli_stmt_execute($stmt))
             {
@@ -176,7 +183,7 @@ nav .nav-bar .nav-bar_item a:hover:after {
 </nav>
     <br>
     <div class="mx-5"><p>Create Patient Record</p></div>
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
     <div class="mx-5">
         <label for="inputlastName" class="form-label">Last Name</label>
         <input type="lastName" id="inputlastName" name="lastName" aria-describedby="lastNameHelp" class="form-control <?php
@@ -234,6 +241,11 @@ nav .nav-bar .nav-bar_item a:hover:after {
         echo (!empty($regDateError)) ? ' is-invalid' : ''; ?><?php echo $registrationDate; ?>">
         <div id="registrationDateHelp" class="form-text">Please enter Patients' Registration Date.</div>
         <span class = "invalid-feedback"><?php echo $regDateError; ?></span>
+    </div>
+    <div class="mx-5">
+        <label for="uploadImage" class="form-label">Upload patients' image</label>
+        <input type="file" id="uploadImage" name="image" aria-describedby="imageUploadHelp" class="form-control <?php echo $imgContent; ?>">
+        <div id="registrationDateHelp" class="form-text">Please upload patients' image.</div>
     </div>
         <div class="form-group mx-5">
         <button type="submit" class="btn btn-primary">Submit</button>

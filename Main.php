@@ -6,6 +6,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
 <style>
 * {margin: 0; padding: 0; box-sizing: border-box;}
@@ -54,6 +55,17 @@ nav .nav-bar .nav-bar_item a:after {
 nav .nav-bar .nav-bar_item a:hover:after {
 	width: 100%;
 }
+.table-row{
+cursor:pointer;
+}
+
+body {
+    background-image: linear-gradient(-225deg, #fff 0%, #1b98e0 100%);
+background-image: linear-gradient(to bottom, #fff 80%, #1b98e0 100%);
+background-attachment: fixed;
+  background-repeat: no-repeat;
+opacity: .95;
+}
 </style>
 <body style="background-color:#fbfbff">
 <nav>
@@ -84,6 +96,7 @@ nav .nav-bar .nav-bar_item a:hover:after {
         echo '<thead>';
             echo '<tr>';
             echo '<th>Patient ID</th>';
+            //echo '<th>Image</th>';
             echo '<th>Last Name</th>';
             echo '<th>First Name</th>';
             echo '<th>Age</th>';
@@ -97,8 +110,9 @@ nav .nav-bar .nav-bar_item a:hover:after {
           echo '</div>';
             while($row = mysqli_fetch_array($result))
             {
-              echo '<tr>';
+              echo '<tr class="table-row" data-href="read.php?patientID='. $row['patientID'] .'" style="text-align: center; vertical-align: middle;">';
                 echo '<td>' . $row['patientID'] . '</td>';
+                //echo '<td><img src="data:image/jpg;charset=utf8;base64,' . base64_encode($row['image']) . '" style="border-radius: 50%; height: 50px; width: 50px;"></td>';
                 echo '<td>' . $row['lastName'] . '</td>';
                 echo '<td>' . $row['firstName'] . '</td>';
                 echo '<td>' . $row['age'] . '</td>';
@@ -116,6 +130,16 @@ nav .nav-bar .nav-bar_item a:hover:after {
   }
 mysqli_close($link);
 //session_start();
+
+echo $_SESSION["username"];
 ?>
+
+<script>
+  $(document).ready(function($) {
+    $(".table-row").click(function() {
+        window.document.location = $(this).data("href");
+    });
+});
+</script>
 </body>
 </html>

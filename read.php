@@ -25,6 +25,7 @@
                     $sex = $row["sex"];
                     $bloodType = $row["bloodType"];
                     $registrationDate = $row["registrationDate"];
+                    $image = $row["image"];
                 }
                 else
                 {
@@ -62,7 +63,13 @@
     * {margin: 0; padding: 0; box-sizing: border-box;}
     .spacer {width: 100%; height: 100px;}
 
-    body {font-family: "Open Sans", sans-serif;}
+    body {
+    background-image: linear-gradient(-225deg, #fff 0%, #1b98e0 100%);
+background-image: linear-gradient(to bottom, #fff 80%, #1b98e0 100%);
+background-attachment: fixed;
+  background-repeat: no-repeat;
+opacity: .95;
+}
 
     nav {
         width: 100%; 
@@ -134,8 +141,8 @@
                         <p><b><?php echo $row["firstName"]; ?></b></p>
                     </div>
                     <div class="form-group">
-                        <label>Salary</label>
-                        <p><b><?php echo $row["age"]; ?></b></p>
+                        <label>Picture</label>
+                        <p><img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['image'])?>"/></p>
                     </div>
                     <p><a href="Main.php" class="btn btn-primary">Back</a></p>
                 </div>

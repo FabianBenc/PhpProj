@@ -47,7 +47,13 @@ else
 * {margin: 0; padding: 0; box-sizing: border-box;}
 .spacer {width: 100%; height: 100px;}
 
-body {font-family: "Open Sans", sans-serif;}
+body {
+    background-image: linear-gradient(-225deg, #fff 0%, #1b98e0 100%);
+background-image: linear-gradient(to bottom, #fff 80%, #1b98e0 100%);
+background-attachment: fixed;
+  background-repeat: no-repeat;
+opacity: .95;
+}
 
 nav {
 	width: 100%; 
