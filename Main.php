@@ -26,6 +26,12 @@ nav {
 	text-decoration: none;
 	color: #fff;
 	text-transform: uppercase;
+  font-size: 25px;
+}
+.card1 {
+  padding: 0px; 
+	text-decoration: none;
+	color: black;
 }
 nav .nav-bar {
 	padding: 0px; 
@@ -35,6 +41,7 @@ nav .nav-bar .nav-bar_item {
 	list-style-type: none;
 	padding-right: 20px;
   padding-top: 15px;
+  font-size: 25px;
 }
 nav .nav-bar .nav-bar_item a {
 	position: relative;
@@ -59,7 +66,20 @@ nav .nav-bar .nav-bar_item a:hover:after {
 .table-row{
 cursor:pointer;
 }
-
+.button2 {
+  background-color: #f3faff; 
+  color: black; 
+  border: 2px solid #008CBA;
+  border-radius: 10px;
+  padding: 5px;
+  width: 100%;
+}
+.imgcenter {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
 body {
     background-image: linear-gradient(-225deg, #fff 0%, #1b98e0 100%);
 background-image: linear-gradient(to bottom, #fff 80%, #1b98e0 100%);
@@ -71,7 +91,7 @@ opacity: .95;
 <body style="background-color:#fbfbff">
 <nav>
   <ul class="nav-bar">
-	  <li class="nav-bar_item"><a class="logo" href="#">Logo</a></li>
+	  <li class="nav-bar_item"><a class="logo" href="#"><i class="fas fa-heartbeat"></i> EHR</a></li>
     <li class="nav-bar_item"><a class="logo" href="Main.php">Home</a></li>
 	  <li class="nav-bar_item"><a class="logo" href="about.php">about</a></li>
   </ul>
@@ -81,9 +101,11 @@ opacity: .95;
 	</ul>
 </nav>
 <div class="row">
-<div class="col-2" style="background-color:#f3faff; height:520px; margin-left:30px; margin-top: 30px; margin-right:10px; border-style:solid; border-color:#1b98e0; box-shadow: 5px 5px 5px lightblue;">
-  <h2> Hello <?php echo $_SESSION["username"];?> </h2>
-  <a href="resetPassword.php">Reset Password</a><br>
+<div class="col-2" style="background-color:#f3faff; height:520px; margin-left:30px; margin-top: 30px; margin-right:10px; border-style:solid; border-color:#1b98e0; box-shadow: 5px 5px 5px lightblue; border-radius:10px;">
+  <h2 style="text-align: center;"> Hello <?php echo $_SESSION["username"];?> </h2>
+  <p><img src="user_1.png" class="imgcenter"/></p>
+  <button class="button button2"><a class ="card1" href="resetPassword.php"><i class="fas fa-cogs"></i> Reset Password</a></button><br>
+  
 </div>
 
 <?php
