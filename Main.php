@@ -9,6 +9,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
 <style>
+  <?php  session_start(); ?>
 * {margin: 0; padding: 0; box-sizing: border-box;}
 .spacer {width: 100%; height: 100px;}
 
@@ -79,11 +80,16 @@ opacity: .95;
 		<li class="nav-bar_item"><a href="logout.php"><i class="fas fa-sign-out-alt"></i> Log out</a></li>
 	</ul>
 </nav>
+<div class="row">
+<div class="col-2" style="background-color:#f3faff; height:520px; margin-left:30px; margin-top: 30px; margin-right:10px; border-style:solid; border-color:#1b98e0; box-shadow: 5px 5px 5px lightblue;">
+  <h2> Hello <?php echo $_SESSION["username"];?> </h2>
+  <a href="resetPassword.php">Reset Password</a><br>
+</div>
+
 <?php
   require_once "config.php";
   //require_once "delete.php";
   //require_once "error.php";
-  session_start();
   //dodaj anti lesar statemente
   $sql = "SELECT * FROM patients WHERE {$_SESSION['id']} = id";
   if($result = mysqli_query($link,$sql))
@@ -91,8 +97,8 @@ opacity: .95;
     if(mysqli_num_rows($result) >= 0)
     {
       echo "<br>";
-      echo "<div id='table'class='mx-auto' style='max-width: 85%'; 'overflow-y = auto'>";
-      echo '<table class = "table rounded-3 text-center table-responsive table-bordered table-hover" style="background-color: #f3faff;">';
+      echo "<div id='table'class='col-9' style='max-width: 85%'; 'overflow-y = auto';>";
+      echo '<table class = "table rounded-3 text-center table-responsive table-bordered table-hover" style="background-color: #f3faff; margin-top: 30px; border-color:#1b98e0;">';
         echo '<thead>';
             echo '<tr>';
             echo '<th>Patient ID</th>';
@@ -130,10 +136,8 @@ opacity: .95;
   }
 mysqli_close($link);
 //session_start();
-
-echo $_SESSION["username"];
 ?>
-
+</div>
 <script>
   $(document).ready(function($) {
     $(".table-row").click(function() {

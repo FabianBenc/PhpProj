@@ -54,6 +54,7 @@
     <meta charset="UTF-8">
     <title>View Record</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <style>
         .wrapper{
             width: 600px;
@@ -142,7 +143,7 @@ opacity: .95;
                     </div>
                     <div class="form-group">
                         <label>Picture</label>
-                        <p><img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['image'])?>"/></p>
+                        <p><img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['image'])?>" onerror="this.src='user_1.png'" width='200' height='200' /></p>
                     </div>
                     <p><a href="Main.php" class="btn btn-primary">Back</a></p>
                 </div>

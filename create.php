@@ -8,7 +8,7 @@ $firstNameError = $lastNameError = $ageError = $sexError = $bloodTypeError = $re
 
 if($_SERVER["REQUEST_METHOD"] == "POST")
 {
-    $image = file_get_contents($_FILES['image']['tmp_name']);
+   
     $inputName = trim($_POST["firstName"]);
     if(empty($inputName))
     {
@@ -80,10 +80,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         $registrationDate = $inputregistrationDate;
     }
 
-    /*if(isset($_POST["image"]) && !empty($_FILES["file"]["name"]))
+    if(empty($_POST["image"]))
     {
-
-    }*/
+        //echo "kek";
+    }
+    else
+    {
+        $image = file_get_contents($_FILES['image']['tmp_name']);
+    }
     
 
     if(empty($firstNameError) && empty($lastNameError) && empty($ageError)  && empty($regDateError) && empty($sexError) && empty($bloodTypeError))
@@ -244,7 +248,7 @@ nav .nav-bar .nav-bar_item a:hover:after {
     </div>
     <div class="mx-5">
         <label for="uploadImage" class="form-label">Upload patients' image</label>
-        <input type="file" id="uploadImage" name="image" aria-describedby="imageUploadHelp" class="form-control <?php echo $imgContent; ?>">
+        <input type="file" id="uploadImage" name="image" aria-describedby="imageUploadHelp" class="form-control <?php echo $image; ?>">
         <div id="registrationDateHelp" class="form-text">Please upload patients' image.</div>
     </div>
         <div class="form-group mx-5">
