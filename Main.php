@@ -20,6 +20,8 @@ nav {
 	background-color: #1b98e0; 
 	display: flex;
 	justify-content: space-between;
+  position: fixed;
+  top:0;
 }
 .logo {
 	padding: 0px; 
@@ -91,8 +93,7 @@ opacity: .95;
 <body style="background-color:#fbfbff">
 <nav>
   <ul class="nav-bar">
-	  <li class="nav-bar_item"><a class="logo" href="#"><i class="fas fa-heartbeat"></i> EHR</a></li>
-    <li class="nav-bar_item"><a class="logo" href="Main.php">Home</a></li>
+	  <li class="nav-bar_item"><a class="logo" href="Main.php"><i class="fas fa-heartbeat"></i> EHR</a></li>
 	  <li class="nav-bar_item"><a class="logo" href="about.php">about</a></li>
   </ul>
 	<ul class="nav-bar">
@@ -101,7 +102,7 @@ opacity: .95;
 	</ul>
 </nav>
 <div class="row">
-<div class="col-2" style="background-color:#f3faff; height:520px; margin-left:30px; margin-top: 30px; margin-right:10px; border-style:solid; border-color:#1b98e0; box-shadow: 5px 5px 5px lightblue; border-radius:10px;">
+<div class="col-2" style="background-color:#f3faff; height:520px; margin-left:30px; margin-top: 80px; margin-right:10px; border-style:solid; border-color:#1b98e0; box-shadow: 5px 5px 5px lightblue; border-radius:10px;position:fixed;">
   <h2 style="text-align: center;"> Hello <?php echo $_SESSION["username"];?> </h2>
   <p><img src="user_1.png" class="imgcenter"/></p>
   <button class="button button2"><a class ="card1" href="resetPassword.php"><i class="fas fa-cogs"></i> Reset Password</a></button><br>
@@ -120,7 +121,7 @@ opacity: .95;
     {
       echo "<br>";
       echo "<div id='table'class='col-9' style='max-width: 85%'; 'overflow-y = auto';>";
-      echo '<table class = "table rounded-3 text-center table-responsive table-bordered table-hover" style="background-color: #f3faff; margin-top: 30px; border-color:#1b98e0;">';
+      echo '<table class = "table rounded-3 text-center table-responsive table-rounded  table-hover" style="background-color: #f3faff; margin-top: 80px; border-color:#1b98e0; font-size: 20px; font-weight: bold; margin-left: 380px;">';
         echo '<thead>';
             echo '<tr>';
             echo '<th>Patient ID</th>';
