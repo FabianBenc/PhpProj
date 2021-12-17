@@ -162,12 +162,15 @@ nav {
 	background-color: #1b98e0; 
 	display: flex;
 	justify-content: space-between;
+  position: fixed;
+  top:0;
 }
 .logo {
 	padding: 0px; 
 	text-decoration: none;
 	color: #fff;
 	text-transform: uppercase;
+    font-size: 25px;
 }
 nav .nav-bar {
 	padding: 0px; 
@@ -177,6 +180,7 @@ nav .nav-bar .nav-bar_item {
 	list-style-type: none;
 	padding-right: 20px;
   padding-top: 15px;
+  font-size: 25px;
 }
 nav .nav-bar .nav-bar_item a {
 	position: relative;
@@ -198,22 +202,20 @@ nav .nav-bar .nav-bar_item a:after {
 nav .nav-bar .nav-bar_item a:hover:after {
 	width: 100%;
 }
-</style>
 
-<body>
+    </style>
+<body style="background-color:#fbfbff">
 <nav>
   <ul class="nav-bar">
-	  <li class="nav-bar_item"><a class="logo" href="#">Logo</a></li>
-    <li class="nav-bar_item"><a class="logo" href="Main.php">Home</a></li>
+	  <li class="nav-bar_item"><a class="logo" href="Main.php"><i class="fas fa-heartbeat"></i> EHR</a></li>
 	  <li class="nav-bar_item"><a class="logo" href="about.php">about</a></li>
   </ul>
 	<ul class="nav-bar">
-		<li class="nav-bar_item"><a href="create.php" hidden>Add New Patient</a></li>
+		<li class="nav-bar_item"><a href="create.php" style="color:#B5F44A"><i class="fas fa-user-plus" style="color:#B5F44A"></i> Add New Patient</a></li>
 		<li class="nav-bar_item"><a href="logout.php"><i class="fas fa-sign-out-alt"></i> Log out</a></li>
 	</ul>
 </nav>
-    <br>
-    <div class="mx-5"><p>Update Patient Record</p></div>
+    <div class="mx-5" style="margin-top: 80px;"><p>Update Patient Record</p></div>
     <form action="<?php echo htmlspecialchars($_SERVER["REQUEST_URI"]); ?>" method="post">
     <div class="mx-5">
         <label for="inputlastName" class="form-label">Last Name</label>

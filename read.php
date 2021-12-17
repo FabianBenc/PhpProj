@@ -19,6 +19,7 @@
                 {
                     $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
+                    $patientID = $row["patientID"];
                     $lastName = $row["lastName"];
                     $firstName = $row["firstName"];
                     $age = $row["age"];
@@ -71,54 +72,62 @@ background-attachment: fixed;
   background-repeat: no-repeat;
 opacity: .95;
 }
+nav {
+	width: 100%; 
+	background-color: #1b98e0; 
+	display: flex;
+	justify-content: space-between;
+  position: fixed;
+  top:0;
+}
+.logo {
+	padding: 0px; 
+	text-decoration: none;
+	color: #fff;
+	text-transform: uppercase;
+    font-size: 25px;
+}
+.card1 {
+  padding: 0px; 
+	text-decoration: none;
+	color: black;
+}
+nav .nav-bar {
+	padding: 0px; 
+	display: flex;
+}
+nav .nav-bar .nav-bar_item {
+	list-style-type: none;
+	padding-right: 20px;
+  padding-top: 15px;
+  font-size: 25px;
+}
+nav .nav-bar .nav-bar_item a {
+	position: relative;
+	display; block; 
+	padding-bottom: 2px;
+	text-decoration: none;
+	color: #fff;
+}
+nav .nav-bar .nav-bar_item a:after {
+	content: "";
+	position: absolute;
+	width: 0%;
+	height: 2px;
+	bottom: 0;
+	left: 0;
+	background-color: #fff;
+	transition: 0.1s ease-in-out;
+}
+nav .nav-bar .nav-bar_item a:hover:after {
+	width: 100%;
+}
 
-    nav {
-        width: 100%; 
-        background-color: #1b98e0; 
-        display: flex;
-        justify-content: space-between;
-    }
-    .logo {
-        padding: 0px; 
-        text-decoration: none;
-        color: #fff;
-        text-transform: uppercase;
-    }
-    nav .nav-bar {
-        padding: 0px; 
-        display: flex;
-    }
-    nav .nav-bar .nav-bar_item {
-        list-style-type: none;
-        padding-right: 20px;
-    padding-top: 15px;
-    }
-    nav .nav-bar .nav-bar_item a {
-        position: relative;
-        display; block; 
-        padding-bottom: 2px;
-        text-decoration: none;
-        color: #fff;
-    }
-    nav .nav-bar .nav-bar_item a:after {
-        content: "";
-        position: absolute;
-        width: 0%;
-        height: 2px;
-        bottom: 0;
-        left: 0;
-        background-color: #fff;
-        transition: 0.1s ease-in-out;
-    }
-    nav .nav-bar .nav-bar_item a:hover:after {
-        width: 100%;
-    }
     </style>
 <body style="background-color:#fbfbff">
 <nav>
   <ul class="nav-bar">
-	  <li class="nav-bar_item"><a class="logo" href="#">Logo</a></li>
-    <li class="nav-bar_item"><a class="logo" href="Main.php">Home</a></li>
+	  <li class="nav-bar_item"><a class="logo" href="Main.php"><i class="fas fa-heartbeat"></i> EHR</a></li>
 	  <li class="nav-bar_item"><a class="logo" href="about.php">about</a></li>
   </ul>
 	<ul class="nav-bar">
@@ -128,27 +137,111 @@ opacity: .95;
 </nav>
 </head>
 <body>
-    <div class="wrapper">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <h1 class="mt-5 mb-3">View Record</h1>
-                    <div class="form-group">
-                        <label>Last Name</label>
-                        <p><b><?php echo $row["lastName"]; ?></b></p>
-                    </div>
-                    <div class="form-group">
-                        <label>First Name</label>
-                        <p><b><?php echo $row["firstName"]; ?></b></p>
-                    </div>
-                    <div class="form-group">
-                        <label>Picture</label>
-                        <p><img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['image'])?>" onerror="this.src='user_1.png'" width='200' height='200' /></p>
-                    </div>
-                    <p><a href="Main.php" class="btn btn-primary">Back</a></p>
-                </div>
-            </div>        
+<section style="margin-top: 80px;">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['image']) ?>" alt="avatar" class="rounded-circle img-fluid" style="width: 250px;">
+            <h5 class="my-3">Patient</h5>
+            <p class="text-muted mb-1"><b><?php echo $row["firstName"]; ?></b></p>
+            <p class="text-muted mb-4"><b><?php echo $row["lastName"]; ?></b></p>
+            <div class="d-flex justify-content-center mb-2">
+            <a href="update.php?patientID=<?php echo $row['patientID'] ?>" class="btn btn-primary" style="margin-right:10px;">Edit</a>
+              <a href="Main.php" class="btn btn-primary">Back</a>
+            </div>
+          </div>
         </div>
+        <div class="card mb-4 mb-lg-0">
+          <div class="card-body p-0">
+            <ul class="list-group list-group-flush rounded-3">
+              <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                <i class="fas fa-globe fa-lg text-warning"></i>
+                <p class="mb-0">https://mdbootstrap.com</p>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                <i class="fab fa-github fa-lg" style="color: #333333;"></i>
+                <p class="mb-0">mdbootstrap</p>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                <i class="fab fa-twitter fa-lg" style="color: #55acee;"></i>
+                <p class="mb-0">@mdbootstrap</p>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                <i class="fab fa-instagram fa-lg" style="color: #ac2bac;"></i>
+                <p class="mb-0">mdbootstrap</p>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                <i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i>
+                <p class="mb-0">mdbootstrap</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">First Name</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0"><b><?php echo $row["firstName"]; ?></b></p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Last Name</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0"><b><?php echo $row["lastName"]; ?></b></p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Age</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0"><b><?php echo $row["age"]; ?></b></p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Sex</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0"><b><?php echo $row["sex"]; ?></b></p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Blood Type</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0"><b><?php echo $row["bloodType"]; ?></b></p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Registration Date</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0"><b><?php echo $row["registrationDate"]; ?></b></p>
+              </div>
+            </div>
+          </div>
+        </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+</section>
 </body>
 </html>

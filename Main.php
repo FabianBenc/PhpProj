@@ -105,8 +105,7 @@ opacity: .95;
 <div class="col-2" style="background-color:#f3faff; height:520px; margin-left:30px; margin-top: 80px; margin-right:10px; border-style:solid; border-color:#1b98e0; box-shadow: 5px 5px 5px lightblue; border-radius:10px;position:fixed;">
   <h2 style="text-align: center;"> Hello <?php echo $_SESSION["username"];?> </h2>
   <p><img src="user_1.png" class="imgcenter"/></p>
-  <button class="button button2"><a class ="card1" href="resetPassword.php"><i class="fas fa-cogs"></i> Reset Password</a></button><br>
-  
+  <button class="button button2"><b><a class ="card1" href="resetPassword.php"><i class="fas fa-cogs"></i> Reset Password</a></b></button><br>
 </div>
 
 <?php
