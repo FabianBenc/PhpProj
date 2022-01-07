@@ -2,7 +2,7 @@
 
 require_once "config.php";
 session_start();
-$firstName = $lastName = $age = $sex = $bloodType = $registrationDate = "";
+$firstName = $lastName = $age = $sex = $bloodType = $registrationDate = $bloodPressure =  "";
 $firstNameError = $lastNameError = $ageError = $sexError = $bloodTypeError = $regDateError = "";
 
 
@@ -80,9 +80,23 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         $registrationDate = $inputregistrationDate;
     }
 
+    $inputBloodPressure = trim($_POST["bloodPressure"]);
+    if(empty($inputBloodPressure))
+    {
+        $bloodPressure = null;
+    }
+    elseif(!filter_var($inputBloodPressure, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^\d+(\/\d+)*$/"))))
+    {
+        $bloodPressureError = "Please enter a valid blood pressure";
+    }
+    else
+    {
+        $bloodPressure = $inputBloodPressure;
+    }
+
     if(empty($_POST["image"]))
     {
-        //echo "kek";
+        //echo "test";
     }
     else
     {
@@ -90,14 +104,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     }
     
 
-    if(empty($firstNameError) && empty($lastNameError) && empty($ageError)  && empty($regDateError) && empty($sexError) && empty($bloodTypeError))
+    if(empty($firstNameError) && empty($lastNameError) && empty($ageError)  && empty($regDateError) && empty($sexError) && empty($bloodTypeError) && empty($bloodPressureError))
     {
-        $sql = "INSERT INTO patients (lastName, firstName, age, sex, bloodType, registrationDate, image, id) VALUES (?, ?, ?, ?, ?, ?, ?,  {$_SESSION['id']}) ";
+        $sql = "INSERT INTO patients (lastName, firstName, age, sex, bloodType, registrationDate, bloodPressure, image, id) VALUES (?, ?, ?, ?, ?, ?, ?, ?,  {$_SESSION['id']}) ";
 
         if($stmt = mysqli_prepare($link, $sql))
         {
             //bind variables to the perapred statement as parameters
-            mysqli_stmt_bind_param($stmt, "sssssss", $lastName, $firstName, $age, $sex, $bloodType, $registrationDate, $image);
+            mysqli_stmt_bind_param($stmt, "ssssssss", $lastName, $firstName, $age, $sex, $bloodType, $registrationDate, $bloodPressure, $image);
 
             if(mysqli_stmt_execute($stmt))
             {
@@ -236,9 +250,9 @@ nav .nav-bar .nav-bar_item a:hover:after {
         <input type="radio" id="bloodType" name="bloodType" value="AB" class="form-radio <?php
         echo (!empty($bloodTypeError)) ? ' is-invalid' : ''; ?><?php echo $bloodType; ?>">
         <label for="AB">AB</label><br>
-        <input type="radio" id="bloodType" name="bloodType" value="0" class="form-radio <?php
+        <input type="radio" id="bloodType" name="bloodType" value="O" class="form-radio <?php
         echo (!empty($bloodTypeError)) ? ' is-invalid' : ''; ?><?php echo $bloodType; ?>">
-        <label for="0">0</label><br>
+        <label for="O">O</label><br>
         <div id="bloodTypeHelp" class="form-text">Please choose Patients' Blood Type.</div>
         <span class = "invalid-feedback"><?php echo $bloodTypeError; ?></span>
     </div>
@@ -248,6 +262,16 @@ nav .nav-bar .nav-bar_item a:hover:after {
         echo (!empty($regDateError)) ? ' is-invalid' : ''; ?><?php echo $registrationDate; ?>">
         <div id="registrationDateHelp" class="form-text">Please enter Patients' Registration Date.</div>
         <span class = "invalid-feedback"><?php echo $regDateError; ?></span>
+    </div>
+    <div class="mx-5">
+    <label for="inputbloodPressure" class="form-label">Blood Pressure</label>
+    <div class="input-group">
+        <input type="bloodPressure" id="inputbloodPressure" name="bloodPressure" aria-describedby="bloodPressureHelp" class="form-control <?php
+        echo (!empty($bloodPressureError)) ? ' is-invalid' : ''; ?><?php echo $bloodPressure; ?>"><div class="input-group-append">
+        <span class="input-group-text"> mmHg </span></div>
+    </div>
+    <div id="bloodPressureHelp" class="form-text">Please enter Patients' Blood Pressure.</div>
+        <span class = "invalid-feedback"><?php echo $bloodPressureError; ?></span>
     </div>
     <div class="mx-5">
         <label for="uploadImage" class="form-label">Upload patients' image</label>

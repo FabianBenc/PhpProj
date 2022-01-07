@@ -2,8 +2,8 @@
 require_once "config.php";
  
 session_start();
-    $firstName = $lastName = $age = $sex = $bloodType = $registrationDate = "";
-    $firstNameError = $lastNameError = $ageError = $sexError = $bloodTypeError = $regDateError = "";
+    $firstName = $lastName = $age = $sex = $bloodType = $registrationDate = $bloodPressure = "";
+    $firstNameError = $lastNameError = $ageError = $sexError = $bloodTypeError = $regDateError = $bloodPressureError ="";
  
 if(!empty($_POST["patientID"])){
     $id = $_POST["patientID"];
@@ -67,6 +67,20 @@ if(!empty($_POST["patientID"])){
         {
             $bloodTypeError = "You must choose patient's blood type.";
         }
+
+        $inputBloodPressure = trim($_POST["bloodPressure"]);
+        if(empty($inputBloodPressure))
+        {
+            $bloodPressure = null;
+        }
+        elseif(!filter_var($inputBloodPressure, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^\d+(\/\d+)*$/"))))
+        {
+            $bloodPressureError = "Please enter a valid blood pressure";
+        }
+        else
+        {
+            $bloodPressure = $inputBloodPressure;
+        }
     
         $inputregistrationDate = trim($_POST["registrationDate"]);
         if(empty($inputregistrationDate))
@@ -78,12 +92,12 @@ if(!empty($_POST["patientID"])){
             $registrationDate = $inputregistrationDate;
         }
     
-    if(empty($firstNameError) && empty($lastNameError) && empty($ageError)  && empty($regDateError) && empty($sexError) && empty($bloodTypeError))
+    if(empty($firstNameError) && empty($lastNameError) && empty($ageError)  && empty($regDateError) && empty($sexError) && empty($bloodTypeError) && empty($bloodPressureError))
         {
-            $sql = "UPDATE patients SET lastName=?, firstName=?, age=?, sex=?, bloodType=?, registrationDate=? WHERE patientID=?";
+            $sql = "UPDATE patients SET lastName=?, firstName=?, age=?, sex=?, bloodType=?, bloodPressure=?, registrationDate=? WHERE patientID=?";
 
         if($stmt = mysqli_prepare($link, $sql)){
-            mysqli_stmt_bind_param($stmt, "ssssssi", $lastName, $firstName, $age, $sex, $bloodType, $registrationDate,$id);
+            mysqli_stmt_bind_param($stmt, "sssssssi", $lastName, $firstName, $age, $sex, $bloodType, $bloodPressure, $registrationDate, $id);
             
             if(mysqli_stmt_execute($stmt)){
                 header("location: Main.php");
@@ -116,6 +130,7 @@ if(!empty($_POST["patientID"])){
                     $age = $row["age"];
                     $sex = $row["sex"];
                     $bloodType = $row["bloodType"];
+                    $bloodPressure = $row["bloodPressure"];
                     $registrationDate = $row["registrationDate"];
                 } else{
                     header("location: error.php");
@@ -263,10 +278,20 @@ nav .nav-bar .nav-bar_item a:hover:after {
        echo (!empty($bloodTypeError)) ? ' is-invalid' : '';?>"<?php echo strcmp($bloodType,"AB") == 0 ? 'checked' :'';?>>
         <label for="AB">AB</label><br>
         <input type="radio" id="bloodType" name="bloodType" value="0" class="form-radio <?php
-        echo (!empty($bloodTypeError)) ? ' is-invalid' : '';?>"<?php echo strcmp($bloodType,"0") == 0 ? 'checked' :'';?>>
-        <label for="0">0</label><br>
+        echo (!empty($bloodTypeError)) ? ' is-invalid' : '';?>"<?php echo strcmp($bloodType,"O") == 0 ? 'checked' :'';?>>
+        <label for="O">O</label><br>
         <div id="bloodTypeHelp" class="form-text">Please choose Patients' Blood Type.</div>
         <span class = "invalid-feedback"><?php echo $bloodTypeError; ?></span>
+    </div>
+    <div class="mx-5">
+    <label for="inputbloodPressure" class="form-label">Blood Pressure</label>
+    <div class="input-group">
+        <input type="bloodPressure" id="inputbloodPressure" name="bloodPressure" aria-describedby="bloodPressureHelp" class="form-control <?php
+        echo (!empty($bloodPressureError)) ? ' is-invalid' : ''; ?>"value="<?php echo $bloodPressure; ?>"><div class="input-group-append">
+        <span class="input-group-text"> mmHg </span></div>
+    </div>
+    <div id="bloodPressureHelp" class="form-text">Please enter Patients' Blood Pressure.</div>
+        <span class = "invalid-feedback"><?php echo $bloodPressureError; ?></span>
     </div>
     <div class="mx-5">
         <label for="inputregistrationDate" class="form-label">Registration Date</label>

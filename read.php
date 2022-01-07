@@ -26,6 +26,7 @@
                     $sex = $row["sex"];
                     $bloodType = $row["bloodType"];
                     $registrationDate = $row["registrationDate"];
+                    $bloodPressure = $row["bloodPressure"];
                     $image = $row["image"];
                 }
                 else
@@ -72,6 +73,7 @@ background-attachment: fixed;
   background-repeat: no-repeat;
 opacity: .95;
 }
+body {font-family: "Open Sans", sans-serif;}
 nav {
 	width: 100%; 
 	background-color: #1b98e0; 
@@ -85,7 +87,7 @@ nav {
 	text-decoration: none;
 	color: #fff;
 	text-transform: uppercase;
-    font-size: 25px;
+  font-size: 25px;
 }
 .card1 {
   padding: 0px; 
@@ -142,7 +144,7 @@ nav .nav-bar .nav-bar_item a:hover:after {
       <div class="col-lg-4">
         <div class="card mb-4">
           <div class="card-body text-center">
-            <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['image']) ?>" alt="avatar" class="rounded-circle img-fluid" style="width: 250px;">
+            <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['image']) ?>" onerror="this.src='user_1.png';this.onerror='';" alt="avatar" class="rounded-circle img-fluid" style="width: 250px;">
             <h5 class="my-3">Patient</h5>
             <p class="text-muted mb-1"><b><?php echo $row["firstName"]; ?></b></p>
             <p class="text-muted mb-4"><b><?php echo $row["lastName"]; ?></b></p>
@@ -156,23 +158,23 @@ nav .nav-bar .nav-bar_item a:hover:after {
           <div class="card-body p-0">
             <ul class="list-group list-group-flush rounded-3">
               <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                <i class="fas fa-globe fa-lg text-warning"></i>
+                
                 <p class="mb-0">https://mdbootstrap.com</p>
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                <i class="fab fa-github fa-lg" style="color: #333333;"></i>
+                
                 <p class="mb-0">mdbootstrap</p>
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                <i class="fab fa-twitter fa-lg" style="color: #55acee;"></i>
+                
                 <p class="mb-0">@mdbootstrap</p>
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                <i class="fab fa-instagram fa-lg" style="color: #ac2bac;"></i>
+              
                 <p class="mb-0">mdbootstrap</p>
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                <i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i>
+                
                 <p class="mb-0">mdbootstrap</p>
               </li>
             </ul>
@@ -229,6 +231,15 @@ nav .nav-bar .nav-bar_item a:hover:after {
             <hr>
             <div class="row">
               <div class="col-sm-3">
+                <p class="mb-0">Blood Pressure</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0"><b><?php echo $row["bloodPressure"]; ?> mmHG</b></p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
                 <p class="mb-0">Registration Date</p>
               </div>
               <div class="col-sm-9">
@@ -237,6 +248,17 @@ nav .nav-bar .nav-bar_item a:hover:after {
             </div>
           </div>
         </div>
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="card mb-4 ">
+              <div class="card-body">
+                <p class="mb-4"><span class="text-primary font-italic me-1"></span> Comments</p>
+                <div  style="height: 5px;">
+                  <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+            </div>
+          </div>
           </div>
         </div>
       </div>
