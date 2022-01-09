@@ -113,7 +113,31 @@ opacity: .95;
   //require_once "delete.php";
   //require_once "error.php";
   //dodaj anti lesar statemente
-  $sql = "SELECT * FROM patients WHERE {$_SESSION['id']} = id";
+  if (isset($_GET['page_no']) && $_GET['page_no']!="") 
+  {
+    $page_no = $_GET['page_no'];
+  }
+  else 
+  {
+    $page_no = 1;
+  }
+  $total_records_per_page = 10;
+  $offset = ($page_no-1) * $total_records_per_page;
+  $previous_page = $page_no - 1;
+  $next_page = $page_no + 1;
+  $adjacents = "2"; 
+
+  $result_count = mysqli_query(
+    $link,
+    "SELECT COUNT(*) As total_records FROM `patients`"
+    );
+    $total_records = mysqli_fetch_array($result_count);
+    $total_records = $total_records['total_records'];
+    $total_no_of_pages = ceil($total_records / $total_records_per_page);
+    $second_last = $total_no_of_pages - 1; // total pages minus 1
+
+  $sql = "SELECT * FROM patients WHERE {$_SESSION['id']} = id  LIMIT $offset, $total_records_per_page";
+
   if($result = mysqli_query($link,$sql))
   {
     if(mysqli_num_rows($result) >= 0)
@@ -159,6 +183,9 @@ opacity: .95;
 mysqli_close($link);
 //session_start();
 ?>
+</div>
+<div style='padding: 10px 20px 0px; border-top: dotted 2px #CCC; margin-left:390px; max-width:74%;'>
+    <strong>Page <?php echo $page_no." of ".$total_no_of_pages; ?></strong>
 </div>
 <script>
   $(document).ready(function($) {
