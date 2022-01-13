@@ -9,7 +9,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
 <style>
-  <?php  session_start(); ?>
+  <?php  session_start();  ?>
 * {margin: 0; padding: 0; box-sizing: border-box;}
 .spacer {width: 100%; height: 100px;}
 
@@ -182,6 +182,10 @@ opacity: .95;
   }
 mysqli_close($link);
 //session_start();
+$NAME=$_SESSION['id'];
+
+echo "Name is ".$NAME;
+echo $_SESSION['id'];
 ?>
 </div>
 <div style='padding: 10px 20px 0px; border-top: dotted 2px #CCC; margin-left:390px; max-width:74%;'>
