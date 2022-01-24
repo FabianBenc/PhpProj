@@ -1,11 +1,4 @@
-'''
-==============
-3D scatterplot
-==============
-
-Demonstration of a basic scatterplot in 3D.
-'''
-
+import csv
 import matplotlib.pyplot as plt
 import pandas as pd
 import mysql.connector
@@ -28,6 +21,7 @@ def conditions(patients):
     elif((patients['yPressure'] > 140) and (patients['xPressure'] < 90)):
         return "Isolated systolic hypertension"
         """
+    # the code above will represent more precise blood pressure type
     if((patients['yPressure'] in range(90,119)) and (patients['xPressure'] in range (60,89))):
         return "Normal Blood Pressure"
     elif((patients['yPressure'] in range(120,139)) and (patients['xPressure'] in range (80,89))):
@@ -37,16 +31,15 @@ def conditions(patients):
     else:
         return "Low Blood Pressure"
 
-
+"""
 try:
     connection = mysql.connector.connect(host = "localhost", database = "ehr", user = "root", password = "")
-
-    
 
     mySql_select__Query = "SELECT age,sex,bloodPressure FROM patients"
     cursor = connection.cursor(dictionary = True)
     cursor.execute(mySql_select__Query)
     row_count = 100
+    #row_count can be changed depending on how many data you want (max rows in db are 1000 atm)
     records = cursor.fetchmany(row_count)
     print("Total number of rows: ", cursor.rowcount)
 
@@ -63,11 +56,11 @@ try:
     #patients['bloodPressureGroup'] = pd.cut((patients['yPressure']), bins = yPressure, labels = yPressureLabel, right = False)
     #print (patients)
     patients['Type'] = patients.apply(conditions, axis=1)
+    #type and age group are added for future improvements
     result = df.join(patients)
     result.to_csv('file1.csv')
     #print (result)
 
-    """normalni: prvi je ispod 120 a drugi je ispod 80, prehypertension: prvi je 120 do 139 ili drugi je od 80 do 89, """
     
 except Error as e:
     print("Error while connecting to MySQL", e)
@@ -76,9 +69,13 @@ finally:
         cursor.close()
         connection.close()
         print("MySql connection is closed")
-
-
+"""
+#the above commented code is used to fetch the rows from db and applying it in real time for data viz. if you want uncomment it
+#and try running the entire project
+result = pd.read_csv('DominiksPartPython/file1.csv')
+#if you wish to try with the db comment the line above this comment
 numSex = [1 if x=='Male'else 0 if x=='Female' else 'error' for x in result['sex']]
+#changing the Male and Female strings to integers so i can work with them as nubers in my scatter plot
 sexs = ['Female', 'Male']
 fig = plt.figure(figsize = (6,6))
 ax = plt.axes(projection = '3d')
