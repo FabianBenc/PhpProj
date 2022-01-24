@@ -6,12 +6,8 @@
 Demonstration of a basic scatterplot in 3D.
 '''
 
-from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
-import numpy as np
-import altair as alt
 import pandas as pd
-from vega_datasets import data
 import mysql.connector
 from mysql.connector import Error
 from matplotlib.colors import ListedColormap
