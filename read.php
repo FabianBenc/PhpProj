@@ -106,7 +106,7 @@ nav .nav-bar .nav-bar_item {
 }
 nav .nav-bar .nav-bar_item a {
 	position: relative;
-	display; block; 
+	display: block; 
 	padding-bottom: 2px;
 	text-decoration: none;
 	color: #fff;
@@ -155,30 +155,6 @@ nav .nav-bar .nav-bar_item a:hover:after {
           </div>
         </div>
         <div class="card mb-4 mb-lg-0">
-          <div class="card-body p-0">
-            <ul class="list-group list-group-flush rounded-3">
-              <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                
-                <p class="mb-0">https://mdbootstrap.com</p>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                
-                <p class="mb-0">mdbootstrap</p>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                
-                <p class="mb-0">@mdbootstrap</p>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-              
-                <p class="mb-0">mdbootstrap</p>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                
-                <p class="mb-0">mdbootstrap</p>
-              </li>
-            </ul>
-          </div>
         </div>
       </div>
       <div class="col-lg-8">
@@ -246,19 +222,6 @@ nav .nav-bar .nav-bar_item a:hover:after {
                 <p class="text-muted mb-0"><b><?php echo $row["registrationDate"]; ?></b></p>
               </div>
             </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-8">
-            <div class="card mb-4 ">
-              <div class="card-body">
-                <p class="mb-4"><span class="text-primary font-italic me-1"></span> Comments</p>
-                <div  style="height: 5px;">
-                  <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-              </div>
-            </div>
-          </div>
           </div>
         </div>
       </div>

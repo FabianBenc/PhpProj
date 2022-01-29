@@ -54,7 +54,7 @@ background-attachment: fixed;
   background-repeat: no-repeat;
 opacity: .95;
 }
-
+body {font-family: "Open Sans", sans-serif;}
 nav {
 	width: 100%; 
 	background-color: #1b98e0; 

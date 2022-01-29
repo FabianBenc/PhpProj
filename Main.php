@@ -47,7 +47,7 @@ nav .nav-bar .nav-bar_item {
 }
 nav .nav-bar .nav-bar_item a {
 	position: relative;
-	display; block; 
+	display: block; 
 	padding-bottom: 2px;
 	text-decoration: none;
 	color: #fff;
@@ -89,12 +89,13 @@ background-attachment: fixed;
   background-repeat: no-repeat;
 opacity: .95;
 }
+body {font-family: "Open Sans", sans-serif;}
 </style>
 <body style="background-color:#fbfbff">
 <nav>
   <ul class="nav-bar">
 	  <li class="nav-bar_item"><a class="logo" href="Main.php"><i class="fas fa-heartbeat"></i> EHR</a></li>
-	  <li class="nav-bar_item"><a class="logo" href="about.php">about</a></li>
+	  <li class="nav-bar_item"><a class="logo" href="about.html">about</a></li>
   </ul>
 	<ul class="nav-bar">
 		<li class="nav-bar_item"><a href="create.php" style="color:#B5F44A"><i class="fas fa-user-plus" style="color:#B5F44A"></i> Add New Patient</a></li>

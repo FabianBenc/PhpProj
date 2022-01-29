@@ -7,7 +7,7 @@ session_start();
  
 if(!empty($_POST["patientID"])){
     $id = $_POST["patientID"];
-    
+    $image = file_get_contents($_FILES['image']['tmp_name']);
     $inputName = trim($_POST["firstName"]);
         if(empty($inputName))
         {
@@ -94,10 +94,10 @@ if(!empty($_POST["patientID"])){
     
     if(empty($firstNameError) && empty($lastNameError) && empty($ageError)  && empty($regDateError) && empty($sexError) && empty($bloodTypeError) && empty($bloodPressureError))
         {
-            $sql = "UPDATE patients SET lastName=?, firstName=?, age=?, sex=?, bloodType=?, bloodPressure=?, registrationDate=? WHERE patientID=?";
+            $sql = "UPDATE patients SET lastName=?, firstName=?, age=?, sex=?, bloodType=?, bloodPressure=?, registrationDate=?, image=? WHERE patientID=?";
 
         if($stmt = mysqli_prepare($link, $sql)){
-            mysqli_stmt_bind_param($stmt, "sssssssi", $lastName, $firstName, $age, $sex, $bloodType, $bloodPressure, $registrationDate, $id);
+            mysqli_stmt_bind_param($stmt, "ssssssssi", $lastName, $firstName, $age, $sex, $bloodType, $bloodPressure, $registrationDate, $image, $id);
             
             if(mysqli_stmt_execute($stmt)){
                 header("location: Main.php");
@@ -132,6 +132,7 @@ if(!empty($_POST["patientID"])){
                     $bloodType = $row["bloodType"];
                     $bloodPressure = $row["bloodPressure"];
                     $registrationDate = $row["registrationDate"];
+                    $image = $row["image"];
                 } else{
                     header("location: error.php");
                     exit();
@@ -171,6 +172,7 @@ background-attachment: fixed;
   background-repeat: no-repeat;
 opacity: .95;
 }
+body {font-family: "Open Sans", sans-serif;}
 
 nav {
 	width: 100%; 
@@ -199,7 +201,7 @@ nav .nav-bar .nav-bar_item {
 }
 nav .nav-bar .nav-bar_item a {
 	position: relative;
-	display; block; 
+	display: block; 
 	padding-bottom: 2px;
 	text-decoration: none;
 	color: #fff;
@@ -230,8 +232,8 @@ nav .nav-bar .nav-bar_item a:hover:after {
 		<li class="nav-bar_item"><a href="logout.php"><i class="fas fa-sign-out-alt"></i> Log out</a></li>
 	</ul>
 </nav>
-    <div class="mx-5" style="margin-top: 80px;"><p>Update Patient Record</p></div>
-    <form action="<?php echo htmlspecialchars($_SERVER["REQUEST_URI"]); ?>" method="post">
+    <div class="mx-5" style="margin-top: 65px;"><p>Update Patient Record</p></div>
+    <form action="<?php echo htmlspecialchars($_SERVER["REQUEST_URI"]); ?>" method="post"  enctype="multipart/form-data">
     <div class="mx-5">
         <label for="inputlastName" class="form-label">Last Name</label>
         <input type="lastName" id="inputlastName" name="lastName" aria-describedby="lastNameHelp" class="form-control <?php
@@ -299,6 +301,11 @@ nav .nav-bar .nav-bar_item a:hover:after {
         echo (!empty($regDateError)) ? ' is-invalid' : ''; ?>"value="<?php echo $registrationDate = date("Y-m-d\TH:i:s", strtotime($row['registrationDate'])); ?>">
         <div id="registrationDateHelp" class="form-text">Please enter Patients' Registration Date.</div>
         <span class = "invalid-feedback"><?php echo $regDateError; ?></span>
+    </div>
+    <div class="mx-5">
+        <label for="uploadImage" class="form-label">Upload patients' image</label>
+        <input type="file" id="uploadImage" name="image" aria-describedby="imageUploadHelp" class="form-control">
+        <div id="registrationDateHelp" class="form-text">Please upload patients' image.</div>
     </div>
         <div class="form-group mx-5">
         <input type="hidden" name="patientID" value="<?php echo $id; ?>"/>
