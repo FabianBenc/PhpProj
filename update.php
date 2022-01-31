@@ -232,7 +232,7 @@ nav .nav-bar .nav-bar_item a:hover:after {
 		<li class="nav-bar_item"><a href="logout.php"><i class="fas fa-sign-out-alt"></i> Log out</a></li>
 	</ul>
 </nav>
-    <div class="mx-5" style="margin-top: 65px;"><p>Update Patient Record</p></div>
+    <div class="mx-5" style="margin-top: 70px;"><p>Update Patient Record</p></div>
     <form action="<?php echo htmlspecialchars($_SERVER["REQUEST_URI"]); ?>" method="post"  enctype="multipart/form-data">
     <div class="mx-5">
         <label for="inputlastName" class="form-label">Last Name</label>
